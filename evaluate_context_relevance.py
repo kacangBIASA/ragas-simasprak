@@ -19,8 +19,7 @@ ap.add_argument("hasil", nargs="?", default="hasil_gptoss120b.json")
 ap.add_argument("--id", nargs="*", default=[], help="hitung ulang hanya soal dengan id ini (untuk audit), mis. --id 1 5 11 23")
 a = ap.parse_args()
 HASIL, RINGKAS = "context_relevance_per_pertanyaan.csv", "context_relevance_ringkasan.csv"
-JEDA = float(os.getenv("JEDA_PANGGILAN", "6"))  # detik; 6 s ~ 10 permintaan/menit, di bawah batas 12 RPM
-
+JEDA = float(os.getenv("JEDA_PANGGILAN", "6")) 
 
 def muat_env(path):
     if os.path.isfile(path):
@@ -71,7 +70,7 @@ def kalimat(teks):
 
 def teks_jawaban(r):
     c = r.content
-    if isinstance(c, list):  # beberapa model mengembalikan daftar blok
+    if isinstance(c, list):  
         c = "".join(x.get("text", "") if isinstance(x, dict) else str(x) for x in c)
     return c
 
