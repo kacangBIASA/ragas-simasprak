@@ -16,12 +16,6 @@ use Throwable;
 /**
  * Pengujian RAGAS: menjalankan setiap pertanyaan pada dataset melalui ChatbotController::tanya (alur produksi),
  * lalu menyimpan jawaban, potongan konteks (Pencari::cari), waktu respons LLM, dan jumlah token ke JSON.
- *
- * Satu model (bawaan .env):
- *   php artisan chatbot:evaluasi dataset_uji.csv hasil_gptoss120b.json --jeda=3
- * Model lain (API kompatibel OpenAI), mis. Gemma lewat Google AI Studio:
- *   php artisan chatbot:evaluasi dataset_uji.csv hasil_gemma.json --model=gemma-4-31b-it \
- *     --url=https://generativelanguage.googleapis.com/v1beta/openai/chat/completions --kunci=GEMINI_API_KEY
  */
 class EvaluasiChatbot extends Command
 {
@@ -46,7 +40,6 @@ class EvaluasiChatbot extends Command
             return self::FAILURE;
         }
 
-        // Ganti model/penyedia hanya selama perintah ini berjalan; chatbot di aplikasi tidak berubah.
         if ($this->option('model')) {
             config(['services.groq.model' => $this->option('model')]);
         }
@@ -77,7 +70,7 @@ class EvaluasiChatbot extends Command
             ];
         });
 
-        Cache::flush(); // jawaban dari cache bukan hasil pipeline yang sedang diuji
+        Cache::flush();
         $hasil = [];
         $hanya = array_filter(array_map('trim', explode(',', (string) $this->option('id'))));
         if ($hanya) {
@@ -132,7 +125,7 @@ class EvaluasiChatbot extends Command
         }
         $bar->finish();
         $keluaran = $this->jalur($this->argument('keluaran'));
-        if ($hanya && is_file($keluaran)) { // gabungkan: baris lama diganti per id
+        if ($hanya && is_file($keluaran)) { 
             $lama = collect(json_decode(file_get_contents($keluaran), true) ?: [])->keyBy('id');
             foreach ($hasil as $h) {
                 $lama[$h['id']] = $h;
@@ -146,11 +139,7 @@ class EvaluasiChatbot extends Command
         return self::SUCCESS;
     }
 
-    /**
-     * Berkas dicari di folder kerja saat ini, lalu di ../ragas-eval (relatif terhadap folder backend).
-     * Dengan begitu perintah bisa dijalankan dari backend tanpa menulis path lengkap, dan berkas baru
-     * (keluaran) dibuat di ragas-eval bila folder itu ada.
-     */
+   
     private function jalur(string $path): string
     {
         if (is_file($path) || preg_match('~^([A-Za-z]:)?[\\\\/]~', $path) === 1) {
