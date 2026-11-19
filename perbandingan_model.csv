@@ -1,0 +1,4 @@
+﻿model,n_terskor,faithfulness,answer_relevancy,factual_correctness,context_precision,context_recall,penolakan_luar_cakupan,penolakan_salah_peran,waktu_llm_rata2_detik,token_keluar_rata2,soal_error_api
+openai/gpt-oss-120b,32,0.93,0.827,0.756,0.867,0.984,1.0,0.857,1.285,178.625,0
+qwen/qwen3.8-27b,32,0.957,0.859,0.84,0.88,0.984,1.0,0.5,0.941,52.531,0
+openai/gpt-oss-20b,32,0.905,0.831,0.782,0.867,0.984,1.0,0.643,0.999,213.812,0

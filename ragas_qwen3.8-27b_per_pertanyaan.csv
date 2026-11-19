@@ -1,0 +1,33 @@
+﻿id,peran,kategori,pertanyaan,faithfulness,answer_relevancy,factual_correctness,llm_context_precision_with_reference,context_recall
+1,asisten,prosedur sistem,Bagaimana cara mengisi presensi kegiatan?,1.0,0.8421688617440299,0.55,0.9999999999,1.0
+2,asisten,prosedur sistem,Apa format dan ukuran maksimal foto kegiatan presensi?,1.0,0.9001839757658137,0.0,0.9999999999,1.0
+3,asisten,prosedur sistem,"Kenapa muncul pesan ""Waktu presensi bertumpuk dengan presensi lain yang sudah Anda catat hari ini.""?",1.0,0.7693462301135209,1.0,0.9999999999,1.0
+4,asisten,prosedur sistem,Berapa maksimal karakter untuk kolom kegiatan pada presensi?,1.0,0.9284806621616237,0.67,0.9999999999,1.0
+5,asisten,prosedur sistem,Bagaimana cara menyusun BAP?,0.7777777777777778,0.8668608390336007,0.83,0.9999999999,1.0
+6,asisten,prosedur sistem,"Apa arti pesan ""Data presensi pada rentang tanggal ini belum tersedia. Silakan ubah tanggal.""?",1.0,0.8651217137680917,0.8,0.3333333333,1.0
+7,asisten,prosedur sistem,Berapa lama tautan unduh BAP berlaku?,1.0,0.9345946538656587,1.0,0.9999999999,1.0
+8,asisten,prosedur sistem,Apa saja isi dari BAP?,1.0,0.8608562504451879,1.0,0.9999999999,1.0
+9,asisten,prosedur sistem,Menu apa saja yang tersedia untuk asisten?,1.0,0.8798823007255551,1.0,0.49999999995,1.0
+10,asisten,prosedur sistem,Mengapa belum ada sertifikat di menu Sertifikat saya?,0.3333333333333333,0.7991338172488239,0.57,0.99999999995,0.5
+11,asisten,prosedur sistem,Bagaimana cara masuk ke sistem?,1.0,0.8507335664317855,0.67,0.9999999999,1.0
+12,dosen,prosedur sistem,Bagaimana cara mendaftarkan kelas praktikum?,1.0,0.8765624858612732,1.0,0.9999999999,1.0
+13,dosen,prosedur sistem,Bagaimana cara menambahkan asisten ke kelas praktikum?,1.0,0.8972425262617013,1.0,0.9999999999,1.0
+14,dosen,prosedur sistem,Apa saja komponen penilaian asisten?,1.0,0.881296201091816,0.75,0.0,1.0
+15,dosen,prosedur sistem,Apa bedanya Simpan draft dan Kirim penilaian?,1.0,0.904367277222633,1.0,0.9999999999,1.0
+16,dosen,prosedur sistem,Bagaimana nilai akhir asisten dihitung?,1.0,0.9170084892206147,0.86,0.49999999995,1.0
+17,admin,prosedur sistem,Apa saja syarat untuk menerbitkan sertifikat?,1.0,0.8823011405370238,0.67,0.9999999999666667,1.0
+18,admin,prosedur sistem,Apa format dan ukuran berkas tanda tangan dan stempel digital?,1.0,0.8635407370440306,1.0,0.9999999999,1.0
+19,admin,prosedur sistem,Dokumen apa saja yang bisa diunggah sebagai sumber chatbot?,1.0,0.8563578581196071,1.0,0.9999999999,1.0
+20,asisten,SOP praktikum,Berapa lama sebelum praktikum asisten harus hadir?,1.0,0.8756306293537105,0.67,0.9999999999,1.0
+21,asisten,SOP praktikum,Berapa menit sebelum praktikum praktikan harus hadir?,1.0,0.8706514548838525,1.0,0.9999999999,1.0
+22,asisten,SOP praktikum,Apa yang harus dilakukan praktikan setelah praktikum selesai?,1.0,0.8702505174704482,1.0,0.9999999999,1.0
+23,asisten,SOP praktikum,Apa yang harus dilakukan asisten setelah praktikum selesai?,1.0,0.8811323919730167,0.89,0.9999999999,1.0
+24,asisten,SOP praktikum,Bagaimana melaporkan alat yang rusak atau komponen tidak lengkap?,1.0,0.9229417721509868,1.0,0.99999999995,1.0
+25,asisten,SOP praktikum,Bolehkah praktikan meninggalkan ruangan sebelum praktikum selesai?,0.5,0.693915704192952,1.0,0.9999999999,1.0
+26,asisten,SOP praktikum,Apa yang dilakukan praktikan sebelum praktikum dimulai?,1.0,0.8657223182517239,0.67,0.49999999995,1.0
+27,asisten,tugas hak kewajiban,Apa itu asisten praktikum?,1.0,0.8360336758441546,0.8,0.9999999999,1.0
+28,asisten,tugas hak kewajiban,Apa saja tugas asprak?,1.0,0.844813783852382,0.8,0.99999999995,1.0
+29,asisten,tugas hak kewajiban,Apa saja hak asprak?,1.0,0.7551281644651158,1.0,0.9999999999,1.0
+30,asisten,tugas hak kewajiban,Apa saja kewajiban asprak?,1.0,0.766112216019527,1.0,0.3333333333,1.0
+31,asisten,tugas hak kewajiban,Siapa yang menentukan asprak pada suatu kelas praktikum?,1.0,0.8237073053274345,0.67,0.9999999999,1.0
+32,asisten,tugas hak kewajiban,Dari mana asprak mendapat fee?,1.0,0.9141202604506994,1.0,0.9999999999,1.0

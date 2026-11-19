@@ -1,0 +1,13 @@
+# Kunci API penilai (jangan pernah diunggah)
+.env
+.env.*
+!.env.example
+
+# Berkas uji coba
+uji_kecil.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

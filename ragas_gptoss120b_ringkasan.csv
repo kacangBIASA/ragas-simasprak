@@ -1,0 +1,6 @@
+﻿,mean,std,n
+faithfulness,0.93,0.159,32
+answer_relevancy,0.827,0.068,32
+factual_correctness,0.756,0.269,32
+llm_context_precision_with_reference,0.867,0.269,32
+context_recall,0.984,0.088,32

@@ -1,0 +1,33 @@
+﻿id,peran,kategori,pertanyaan,faithfulness,answer_relevancy,factual_correctness,llm_context_precision_with_reference,context_recall
+1,asisten,prosedur sistem,Bagaimana cara mengisi presensi kegiatan?,1.0,0.8452864521226843,0.67,0.9999999999,1.0
+2,asisten,prosedur sistem,Apa format dan ukuran maksimal foto kegiatan presensi?,1.0,0.9048332458808453,1.0,0.9999999999,1.0
+3,asisten,prosedur sistem,"Kenapa muncul pesan ""Waktu presensi bertumpuk dengan presensi lain yang sudah Anda catat hari ini.""?",0.6666666666666666,0.8159260606727514,0.67,0.9999999999,1.0
+4,asisten,prosedur sistem,Berapa maksimal karakter untuk kolom kegiatan pada presensi?,1.0,0.7752749547218037,0.67,0.9999999999,1.0
+5,asisten,prosedur sistem,Bagaimana cara menyusun BAP?,1.0,0.7569674550324592,0.75,0.9999999999,1.0
+6,asisten,prosedur sistem,"Apa arti pesan ""Data presensi pada rentang tanggal ini belum tersedia. Silakan ubah tanggal.""?",1.0,0.7976232262092621,0.8,0.3333333333,1.0
+7,asisten,prosedur sistem,Berapa lama tautan unduh BAP berlaku?,1.0,0.9459996836413603,0.67,0.9999999999,1.0
+8,asisten,prosedur sistem,Apa saja isi dari BAP?,1.0,0.80430291428014,0.91,0.9999999999,1.0
+9,asisten,prosedur sistem,Menu apa saja yang tersedia untuk asisten?,1.0,0.7399298694977768,0.91,0.49999999995,1.0
+10,asisten,prosedur sistem,Mengapa belum ada sertifikat di menu Sertifikat saya?,0.6666666666666666,0.8011206366639544,0.0,0.99999999995,0.5
+11,asisten,prosedur sistem,Bagaimana cara masuk ke sistem?,0.8333333333333334,0.7602660432407541,0.67,0.9999999999,1.0
+12,dosen,prosedur sistem,Bagaimana cara mendaftarkan kelas praktikum?,1.0,0.8147279702782306,1.0,0.9999999999,1.0
+13,dosen,prosedur sistem,Bagaimana cara menambahkan asisten ke kelas praktikum?,1.0,0.861202098202064,1.0,0.9999999999,1.0
+14,dosen,prosedur sistem,Apa saja komponen penilaian asisten?,1.0,0.9107474513310857,0.89,0.0,1.0
+15,dosen,prosedur sistem,Apa bedanya Simpan draft dan Kirim penilaian?,1.0,0.8989221240173113,0.89,0.9999999999,1.0
+16,dosen,prosedur sistem,Bagaimana nilai akhir asisten dihitung?,1.0,0.9162555796876556,0.4,0.49999999995,1.0
+17,admin,prosedur sistem,Apa saja syarat untuk menerbitkan sertifikat?,0.42857142857142855,0.7124225286192946,0.5,0.5833333333041666,1.0
+18,admin,prosedur sistem,Apa format dan ukuran berkas tanda tangan dan stempel digital?,1.0,0.722567976574131,1.0,0.9999999999,1.0
+19,admin,prosedur sistem,Dokumen apa saja yang bisa diunggah sebagai sumber chatbot?,1.0,0.8853088848232339,1.0,0.9999999999,1.0
+20,asisten,SOP praktikum,Berapa lama sebelum praktikum asisten harus hadir?,1.0,0.8779335857768119,0.67,0.9999999999,1.0
+21,asisten,SOP praktikum,Berapa menit sebelum praktikum praktikan harus hadir?,1.0,0.8758049777473643,1.0,0.9999999999,1.0
+22,asisten,SOP praktikum,Apa yang harus dilakukan praktikan setelah praktikum selesai?,1.0,0.8537348765408058,1.0,0.9999999999,1.0
+23,asisten,SOP praktikum,Apa yang harus dilakukan asisten setelah praktikum selesai?,1.0,0.799461518600343,0.62,0.9999999999,1.0
+24,asisten,SOP praktikum,Bagaimana melaporkan alat yang rusak atau komponen tidak lengkap?,0.6666666666666666,0.832561913600713,0.0,0.99999999995,1.0
+25,asisten,SOP praktikum,Bolehkah praktikan meninggalkan ruangan sebelum praktikum selesai?,0.5,0.7647866289455468,1.0,0.9999999999,1.0
+26,asisten,SOP praktikum,Apa yang dilakukan praktikan sebelum praktikum dimulai?,1.0,0.8737601221175937,0.57,0.49999999995,1.0
+27,asisten,tugas hak kewajiban,Apa itu asisten praktikum?,1.0,0.8509922774461524,0.5,0.9999999999,1.0
+28,asisten,tugas hak kewajiban,Apa saja tugas asprak?,1.0,0.7639233449696201,0.75,0.99999999995,1.0
+29,asisten,tugas hak kewajiban,Apa saja hak asprak?,1.0,0.881096037012073,1.0,0.9999999999,1.0
+30,asisten,tugas hak kewajiban,Apa saja kewajiban asprak?,1.0,0.675917509139576,1.0,0.3333333333,1.0
+31,asisten,tugas hak kewajiban,Siapa yang menentukan asprak pada suatu kelas praktikum?,1.0,0.8329724229026585,0.67,0.9999999999,1.0
+32,asisten,tugas hak kewajiban,Dari mana asprak mendapat fee?,1.0,0.9244303784199918,1.0,0.9999999999,1.0
