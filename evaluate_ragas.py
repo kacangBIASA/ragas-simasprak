@@ -1,19 +1,3 @@
-"""Evaluasi RAGAS atas hasil chatbot (keluaran php artisan chatbot:evaluasi), per model.
-
-pip install ragas langchain-google-genai pandas
-Penilai (LLM-as-judge), pilih salah satu:
-  A) Gemini (bawaan): isi ragas-eval/.env  ->  GOOGLE_API_KEY=kunci-baru   [opsional: JUDGE_MODEL=nama-model-lain]
-     (GEMINI_API_KEY di berkas itu juga diterima). Gunakan kunci dari proyek Google lain agar kuota terpisah
-     dari kunci chatbot di backend/.env. Variabel terminal ($env:...) mengalahkan isi .env.
-  B) API kompatibel OpenAI: $env:JUDGE_PROVIDER="openai"; $env:JUDGE_BASE_URL="https://.../v1";
-     $env:JUDGE_API_KEY="..."; $env:JUDGE_MODEL="nama-model"
-Embedding untuk answer_relevancy tetap Gemini (GOOGLE_API_KEY).
-Pakai penilai yang SAMA untuk semua model yang dibandingkan.
-
-python evaluate_ragas.py hasil_gptoss120b.json --awalan gptoss120b
-Hasil: ragas_<awalan>_per_pertanyaan.csv dan ragas_<awalan>_ringkasan.csv.
-Aman dijalankan berulang: soal yang kelima skornya sudah terisi dilewati.
-"""
 import argparse, json, os, re, sys, time
 import pandas as pd
 from ragas import evaluate, EvaluationDataset, RunConfig
@@ -30,8 +14,6 @@ a = ap.parse_args()
 suf = f"_{a.awalan}" if a.awalan else ""
 HASIL, RINGKAS = f"ragas{suf}_per_pertanyaan.csv", f"ragas{suf}_ringkasan.csv"
 
-# Kunci penilai dibaca dengan prioritas: variabel terminal > ragas-eval/.env. Tidak ada cadangan ke backend/.env,
-# agar kuota kunci sistem (chatbot) tidak terpakai penilai. ragas-eval/.env diabaikan git.
 def muat_env(path):
     isi = {}
     if os.path.isfile(path):
@@ -47,7 +29,7 @@ def muat_env(path):
 
 AKAR = os.path.dirname(os.path.abspath(__file__))
 lokal = muat_env(os.path.join(AKAR, ".env"))
-if not os.getenv("GOOGLE_API_KEY") and lokal.get("GEMINI_API_KEY"):  # nama lain di ragas-eval/.env
+if not os.getenv("GOOGLE_API_KEY") and lokal.get("GEMINI_API_KEY"):  
     os.environ["GOOGLE_API_KEY"] = lokal["GEMINI_API_KEY"]
 if lokal.get("GOOGLE_API_KEY") or lokal.get("GEMINI_API_KEY"):
     print("Kunci penilai: dari ragas-eval/.env")
@@ -63,11 +45,9 @@ BATCH = int(os.getenv("BATCH", "4"))
 JEDA = int(os.getenv("JEDA_BATCH", "45"))
 
 df = pd.DataFrame(json.load(open(a.hasil, encoding="utf-8")))
-# Model penalaran (mis. Qwen) kadang menyertakan <think>...</think>; dibuang sebelum dinilai.
 df["jawaban_chatbot"] = df.jawaban_chatbot.str.replace(r"<think>.*?</think>", "", regex=True, flags=re.S).str.strip()
 ERR = ("[ERROR]", "[GALAT]")
 
-# 1) Pertanyaan dalam cakupan -> metrik RAGAS, per batch kecil dan bisa dilanjutkan.
 METRICS = [Faithfulness(), ResponseRelevancy(), FactualCorrectness(),
            LLMContextPrecisionWithReference(), LLMContextRecall()]
 METRIK = [m.name for m in METRICS]
@@ -89,18 +69,16 @@ if os.getenv("JUDGE_PROVIDER", "gemini").lower() == "openai":
     chat = ChatOpenAI(model=JUDGE, base_url=os.environ["JUDGE_BASE_URL"],
                       api_key=os.environ["JUDGE_API_KEY"], temperature=0)
 else:
-    # Pembatas laju: jaga di bawah batas RPM kuota gratis (Flash Lite = 15). Ubah lewat JUDGE_RPM di .env.
     from langchain_core.rate_limiters import InMemoryRateLimiter
     RPM = float(os.getenv("JUDGE_RPM", "12"))
     chat = ChatGoogleGenerativeAI(model=JUDGE, temperature=0,
                                   rate_limiter=InMemoryRateLimiter(requests_per_second=RPM / 60, max_bucket_size=1))
 print("Penilai:", os.getenv("JUDGE_PROVIDER", "gemini"), JUDGE)
-try:  # bypass_n: beberapa model (mis. Gemini 3.x) menolak "multiple candidates"; RAGAS lalu memanggil berulang
+try:  
     llm = LangchainLLMWrapper(chat, bypass_n=True)
-except TypeError:  # versi RAGAS lama tanpa bypass_n
+except TypeError:  
     llm = LangchainLLMWrapper(chat)
 
-# Uji koneksi singkat: gagal di sini lebih baik daripada berjam-jam menghasilkan skor kosong (NaN).
 try:
     chat.invoke("Balas dengan satu kata: OK")
     GoogleGenerativeAIEmbeddings(model=EMB).embed_query("uji")
@@ -122,7 +100,6 @@ for mulai in range(0, len(sisa), BATCH):
     ds = EvaluationDataset.from_list([{
         "user_input": r.pertanyaan, "response": r.jawaban_chatbot,
         "retrieved_contexts": r.konteks, "reference": r.jawaban_acuan} for r in b.itertuples()])
-    # Hanya metrik yang masih kosong pada batch ini yang dinilai ulang (hemat kuota).
     kurang = [m for m in METRICS if any(pd.isna(skor.get(int(i), {}).get(m.name, float("nan"))) for i in b["id"])]
     try:
         res = evaluate(ds, metrics=kurang, llm=llm, embeddings=emb,
@@ -130,7 +107,7 @@ for mulai in range(0, len(sisa), BATCH):
         sk = res.to_pandas()
         if mulai == 0:
             print("Kolom keluaran RAGAS:", list(sk.columns))
-        def kolom(nama):  # nama kolom bisa berbeda, mis. "factual_correctness(mode=f1)"
+        def kolom(nama):  
             if nama in sk.columns:
                 return nama
             return next((c for c in sk.columns if str(c).startswith(nama)), None)
@@ -140,7 +117,7 @@ for mulai in range(0, len(sisa), BATCH):
                 v = sk.iloc[i][c] if c else float("nan")
                 if pd.notna(v):
                     skor.setdefault(int(r["id"]), {})[m.name] = v
-    except Exception as e:  # batas laju/timeout: lanjut ke batch berikutnya
+    except Exception as e:  
         print("Batch gagal:", type(e).__name__, str(e)[:120])
     tmp = simpan()
     print(f"Batch {mulai // BATCH + 1} selesai; terskor lengkap: {int(tmp[METRIK].notna().all(axis=1).sum())}/{len(tmp)}")
@@ -161,11 +138,9 @@ print("\n=== Per kategori (rata-rata) ===")
 print(out.groupby("kategori")[METRIK].mean().round(3))
 agg.to_csv(RINGKAS, encoding="utf-8-sig")
 
-# 2) Penolakan: di luar cakupan dan salah peran (aturan, bukan RAGAS)
 luar = df[df.jenis == "di_luar_cakupan"]
 salah = df[df.jenis == "salah_peran"]
 acc_luar = luar.di_luar_cakupan.mean() if len(luar) else float("nan")
-# Penolakan salah peran dibaca dari bendera 'salah_peran' pada hasil; berkas lama (tanpa bendera) memakai teks pesan lama.
 if len(salah) and "salah_peran" in salah.columns:
     acc_salah = salah.salah_peran.astype(bool).mean()
 elif len(salah):
